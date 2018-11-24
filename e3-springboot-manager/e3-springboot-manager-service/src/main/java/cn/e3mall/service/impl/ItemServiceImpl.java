@@ -184,6 +184,9 @@ public class ItemServiceImpl implements ItemService {
 		itemMapper.updateByPrimaryKeySelective(item);
 		itemDescMapper.updateByPrimaryKeySelective(itemDesc);
 		
+		//删除redis商品缓存
+		jedisClient.del(ITEM_INFO_PRE+":"+item.getId()+":BASE");
+		
 		return E3Result.ok();
 	}
 	
@@ -198,7 +201,10 @@ public class ItemServiceImpl implements ItemService {
 			//更新商品状态 //商品状态，1-正常，2-下架，3-删除
 			item.setStatus((byte)3);
 			itemMapper.updateByPrimaryKeySelective(item);
+			//删除redis商品缓存
+			jedisClient.del(ITEM_INFO_PRE+":"+id+":BASE");
 		}
+		
 		return E3Result.ok();
 	}
 	
@@ -213,6 +219,8 @@ public class ItemServiceImpl implements ItemService {
 			//更新商品状态 //商品状态，1-正常，2-下架，3-删除
 			item.setStatus((byte)2);
 			itemMapper.updateByPrimaryKeySelective(item);
+			//删除redis商品缓存
+			jedisClient.del(ITEM_INFO_PRE+":"+id+":BASE");
 		}
 		return E3Result.ok();
 	}
@@ -228,6 +236,8 @@ public class ItemServiceImpl implements ItemService {
 			//更新商品状态 //商品状态，1-正常，2-下架，3-删除
 			item.setStatus((byte)1);
 			itemMapper.updateByPrimaryKeySelective(item);
+			//删除redis商品缓存
+			jedisClient.del(ITEM_INFO_PRE+":"+id+":BASE");
 		}
 		return E3Result.ok();
 	}
