@@ -29,6 +29,7 @@ import cn.e3mall.pojo.TbUser;
 import cn.e3mall.service.ItemService;
 @Controller
 public class CartController {
+	//远程仓库对代码进行修改冲突测试
 
 	//cookie购物车key
 	@Value("${COOKIE_CART}")
